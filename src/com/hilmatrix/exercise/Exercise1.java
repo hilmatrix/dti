@@ -7,14 +7,39 @@ import java.util.Scanner;
 
 public class Exercise1 {
     public static void run() {
-        System.out.println("Hilmatrix Exercise 2024-09-02");
-        System.out.println("");
+        Scanner scanner = new Scanner(System.in);
+        int taskSelection;
 
-        rectangleArea();
-        circleArea();
-        findingThirdAngle();
-        findingDaysDifference();
-        findingInitial();
+        while (true) {
+            System.out.println("---------------------------");
+            System.out.println("Exercise 1. Select 0 to return");
+            System.out.println("Task 1 Find Rectangle Area");
+            System.out.println("Task 2 Find Circle Area");
+            System.out.println("Task 3 Find Third Angle");
+            System.out.println("Task 4 Find days difference");
+            System.out.println("Task 5 Find initial");
+
+            try {
+                System.out.print("Select task number : ");
+                taskSelection = scanner.nextInt();
+            } catch (Exception e) {
+                scanner = new Scanner(System.in);
+                continue;
+            }
+
+            scanner = new Scanner(System.in);
+
+            switch (taskSelection) {
+                case 1: rectangleArea(); break;
+                case 2: circleArea(); break;
+                case 3: findingThirdAngle(); break;
+                case 4: findingDaysDifference(); break;
+                case 5: findingInitial(); break;
+            }
+
+            if (taskSelection == 0)
+                break;
+        }
     }
 
     public static void rectangleArea() {
