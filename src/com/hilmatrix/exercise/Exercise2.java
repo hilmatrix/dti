@@ -71,9 +71,18 @@ public class Exercise2 {
 
     public static void runTask5(Scanner scanner) {
         System.out.print("Input string : ");
-        String inputStr = scanner.nextLine();
-        String reversedStr = new StringBuilder(inputStr).reverse().toString();
-        if (inputStr.equalsIgnoreCase(reversedStr))
+        String inputStr = scanner.nextLine().toLowerCase();
+        boolean equal = true;
+        int lastIndex = inputStr.length()-1;
+
+        for (int loop = 0; loop < inputStr.length()/2; loop++) {
+            if (!(inputStr.charAt(loop) == inputStr.charAt(lastIndex-loop))) {
+                equal = false;
+                break;
+            }
+        }
+
+        if (equal)
             System.out.println("Output : is palindrome");
         else
             System.out.println("Output : not a palindrome");
