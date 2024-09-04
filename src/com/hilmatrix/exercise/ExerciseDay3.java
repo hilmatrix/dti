@@ -107,9 +107,9 @@ public class ExerciseDay3 {
 
         int operand = Integer.parseInt(tokens[0]);
 
-        for (int i = 1; i < tokens.length; i += 2) {
-            String operator = tokens[i];
-            int secondOperand = Integer.parseInt(tokens[i + 1]);
+        for (int loop = 1; loop < tokens.length; loop += 2) {
+            String operator = tokens[loop];
+            int secondOperand = Integer.parseInt(tokens[loop + 1]);
 
             if (operator.equals("+")) {
                 operand += secondOperand;
