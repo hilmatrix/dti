@@ -30,11 +30,11 @@ public class Exercise1 {
             scanner = new Scanner(System.in);
 
             switch (taskSelection) {
-                case 1: rectangleArea(); break;
-                case 2: circleArea(); break;
-                case 3: findingThirdAngle(); break;
-                case 4: findingDaysDifference(); break;
-                case 5: findingInitial(); break;
+                case 1: rectangleArea(scanner); break;
+                case 2: circleArea(scanner); break;
+                case 3: findingThirdAngle(scanner); break;
+                case 4: findingDaysDifference(scanner); break;
+                case 5: findingInitial(scanner); break;
             }
 
             if (taskSelection == 0)
@@ -42,8 +42,7 @@ public class Exercise1 {
         }
     }
 
-    public static void rectangleArea() {
-        Scanner scanner = new Scanner(System.in);
+    public static void rectangleArea(Scanner scanner) {
         System.out.println("Task 1. Finding rectangle area");
 
         System.out.print("Input length = ");
@@ -55,8 +54,7 @@ public class Exercise1 {
         System.out.println();
     }
 
-    public static void circleArea() {
-        Scanner scanner = new Scanner(System.in);
+    public static void circleArea(Scanner scanner) {
         System.out.println("Task 2. Finding circle area");
 
         System.out.print("Input radius = ");
@@ -68,8 +66,7 @@ public class Exercise1 {
         System.out.println();
     }
 
-    public static void findingThirdAngle() {
-        Scanner scanner = new Scanner(System.in);
+    public static void findingThirdAngle(Scanner scanner) {
         System.out.println("Task 3. Finding angle from known 2 angle");
 
         System.out.print("Input angle A = ");
@@ -81,8 +78,7 @@ public class Exercise1 {
         System.out.println();
     }
 
-    public static void findingDaysDifference() {
-        Scanner scanner = new Scanner(System.in);
+    public static void findingDaysDifference(Scanner scanner) {
         System.out.println("Task 4. Get days difference between 2 dates");
 
         System.out.print("Input date A = ");
@@ -96,8 +92,7 @@ public class Exercise1 {
         System.out.println();
     }
 
-    public static void findingInitial() {
-        Scanner scanner = new Scanner(System.in);
+    public static void findingInitial(Scanner scanner) {
         System.out.println("Task 5. Printing initial from name");
 
         System.out.print("Input name = ");
