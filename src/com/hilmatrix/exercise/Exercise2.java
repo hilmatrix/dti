@@ -42,22 +42,22 @@ public class Exercise2 {
     public static void runTask1(Scanner scanner) {
         System.out.print("Input fahrenheit : ");
         double fahrenheit = scanner.nextDouble();
-        System.out.println("Output fahrenheit : " + (fahrenheit - 32) * 5 / 9);
+        System.out.println("Output celsius : " + (fahrenheit - 32) * 5 / 9);
     }
 
     public static void runTask2(Scanner scanner) {
         System.out.print("Input cm : ");
         double cm = scanner.nextDouble();
-        System.out.println("Output km : " + cm/10000 + " km");
+        System.out.println("Output km : " + cm/100000 + " km");
     }
 
     public static void runTask3(Scanner scanner) {
         System.out.print("Input number : ");
         int number = scanner.nextInt();
         if ((number % 2) == 0)
-            System.out.println(number + " is Even");
+            System.out.println("Output : " + number + " is Even");
         else
-            System.out.println(number + " is Odd");
+            System.out.println("Output : " + number + " is Odd");
     }
 
     public static void runTask4(Scanner scanner) {
