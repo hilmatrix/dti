@@ -1,6 +1,7 @@
 package com.hilmatrix.exercise;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,10 +33,13 @@ public class ExerciseDay3 {
                 case 1: runTask1countDigit(scanner); break;
                 case 2: runTask2checkIsPrime(scanner); break;
                 case 3: runTask3findLargest(scanner); break;
+                case 4: runTask4simpleCalculator(scanner); break;
                 case 5: runTask5reverseString(scanner); break;
                 case 6: runTask6Fibonacci(scanner); break;
                 case 7: runTask7vowels(scanner); break;
                 case 8: runTask8bubbleSort(scanner); break;
+                case 9: runTask9anagram(scanner); break;
+                case 10: runTask10secondSmallest(scanner); break;
             }
 
             if (taskSelection == 0)
@@ -78,10 +82,10 @@ public class ExerciseDay3 {
     }
 
     public static void runTask3findLargest(Scanner scanner) {
-        System.out.print("Input number separated by comma : ");
+        System.out.print("Input number separated by space : ");
 
         String strNumber = scanner.nextLine();
-        String[] strNumberArray = strNumber.replaceAll(" ", "").split(",");
+        String[] strNumberArray = strNumber.split(" ");
         int currentValue = Integer.valueOf(strNumberArray[0]);
 
         if (strNumberArray.length > 1) {
@@ -98,21 +102,23 @@ public class ExerciseDay3 {
     public static void runTask4simpleCalculator(Scanner scanner) {
         System.out.print("Input expression : ");
 
-        String strInput = scanner.nextLine().replaceAll(" ","");
-        int operand1 = 0;
-        int operand2 = 0;
-        char operator = '+';
-        String strOperand ="";
+        String strInput = scanner.nextLine();
+        String[] tokens = strInput.split(" ");
 
-        for (int loop = 0; loop < strInput.length(); loop++) {
-            if (Character.isDigit(strInput.charAt(loop))) {
-                strOperand += strInput.charAt(loop);
-            } else if ((strInput.charAt(loop) == '+') || (strInput.charAt(loop) == '-'))  {
-                operand2 = Integer.valueOf(strOperand);
-                //operand1 += operand1
+        int operand = Integer.parseInt(tokens[0]);
+
+        for (int i = 1; i < tokens.length; i += 2) {
+            String operator = tokens[i];
+            int secondOperand = Integer.parseInt(tokens[i + 1]);
+
+            if (operator.equals("+")) {
+                operand += secondOperand;
+            } else if (operator.equals("-")) {
+                operand -= secondOperand;
             }
         }
 
+        System.out.println("Output : " + operand);
     }
 
     public static void runTask5reverseString(Scanner scanner) {
@@ -169,10 +175,10 @@ public class ExerciseDay3 {
     }
 
     public static void runTask8bubbleSort(Scanner scanner) {
-        System.out.print("Input number separated by comma : ");
+        System.out.print("Input number separated by space : ");
 
         String strNumber = scanner.nextLine();
-        String[] strNumberArray = strNumber.replaceAll(" ", "").split(",");
+        String[] strNumberArray = strNumber.split(" ");
         List<Integer> integerArray = new ArrayList<Integer>();
 
         if (strNumberArray.length > 1) {
@@ -198,5 +204,44 @@ public class ExerciseDay3 {
             System.out.print(num + " ");
         }
         System.out.println();
+    }
+    public static void runTask9anagram(Scanner scanner) {
+        System.out.print("Input first string: ");
+        String str1 = scanner.nextLine();
+        System.out.print("Input second string: ");
+        String str2 = scanner.nextLine();
+
+        char[] charArray1 = str1.toLowerCase().toCharArray();
+        char[] charArray2 = str2.toLowerCase().toCharArray();
+
+        Arrays.sort(charArray1);
+        Arrays.sort(charArray2);
+
+        boolean isAnagram = Arrays.equals(charArray1, charArray2);
+        if (isAnagram)
+            System.out.println("Output : both string are anagram");
+        else
+            System.out.println("Output : not anagram");
+    }
+
+    public static void runTask10secondSmallest(Scanner scanner) {
+        System.out.print("Input number separated by space : ");
+
+        String strNumber = scanner.nextLine();
+        String[] strNumberArray = strNumber.split(" ");
+        int currentValue = Integer.valueOf(strNumberArray[0]);
+        int secondSmallestValue = currentValue;
+
+        if (strNumberArray.length > 1) {
+            for (int loop = 1; loop < strNumberArray.length; loop++) {
+                int nextValue = Integer.valueOf(strNumberArray[loop]);
+                if (currentValue > nextValue) {
+                    secondSmallestValue = currentValue;
+                    currentValue = nextValue;
+                }
+            }
+        }
+
+        System.out.println("Output : The second smallest number is " + secondSmallestValue);
     }
 }
