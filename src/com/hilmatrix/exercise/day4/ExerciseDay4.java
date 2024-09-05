@@ -1,6 +1,7 @@
 package com.hilmatrix.exercise.day4;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class ExerciseDay4 {
     public static void start() {
@@ -30,6 +31,8 @@ public class ExerciseDay4 {
                 case 1: runTask1createMultiplicationTable(scanner);
                 case 2: runTask2createPattern(scanner);
                 case 3: runTask3countReadInput(scanner);
+                case 4: runTask4guessGame(scanner);
+                case 5: runTask5swapCase(scanner);
             }
 
             if (taskSelection == 0)
@@ -88,5 +91,47 @@ public class ExerciseDay4 {
         } while (!stop);
 
         System.out.println("Output : You gave " + inputCount + " inputs");
+    }
+
+    public static void runTask4guessGame(Scanner scanner) {
+        Random random = new Random();
+        int guessCount = 0;
+        int inputGuess = 0;
+        int targetGuess = 1 + random.nextInt(100);
+
+        System.out.println("Input between 1 and 100");
+        do {
+            System.out.print("Your guess : ");
+            inputGuess = scanner.nextInt();
+
+            if ((inputGuess < 1) || (inputGuess > 100)) {
+                System.out.println("Invalid input");
+                continue;
+            }
+
+            guessCount++;
+            if (inputGuess < targetGuess)
+                System.out.println("Too low");
+            else if (inputGuess > targetGuess)
+                System.out.println("Too high");
+
+        } while (inputGuess != targetGuess);
+
+        System.out.println("Congratulations you guessed correct");
+        System.out.println("You guessed " + guessCount + " times");
+    }
+
+    public static void runTask5swapCase(Scanner scanner) {
+        System.out.print("Input string : ");
+
+        String strInput = scanner.nextLine();
+        String swappedCase = "";
+
+        for (int loop = 0; loop < strInput.length(); loop++) {
+            char c = strInput.charAt(loop);
+            swappedCase += Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c);
+        }
+
+        System.out.println("Output string : " + swappedCase);
     }
 }
