@@ -2,7 +2,7 @@ package com.hilmatrix.exercise;
 
 import java.util.Scanner;
 
-public class Exercise2 {
+public class ExerciseDay2 {
     public static void run() {
         Scanner scanner = new Scanner(System.in);
         int taskSelection;
