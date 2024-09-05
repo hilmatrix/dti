@@ -9,7 +9,7 @@ public class Exercise2 {
 
         while (true) {
             System.out.println("---------------------------");
-            System.out.println("Exercise 2. Select 0 to return");
+            System.out.println("Exercise Day 2. Select 0 to exit");
             System.out.println("Task 1 Fahrenheit to Celcius conversion");
             System.out.println("Task 2 cm to km conversion");
             System.out.println("Task 3 check a number even or odd");
