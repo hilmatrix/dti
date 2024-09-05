@@ -1,4 +1,4 @@
-package com.hilmatrix.exercise;
+package com.hilmatrix.exercise.part2;
 
 import java.util.Scanner;
 

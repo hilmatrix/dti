@@ -1,4 +1,4 @@
-package com.hilmatrix.exercise;
+package com.hilmatrix.exercise.part1;
 
 import java.lang.Math;
 import java.time.LocalDate;

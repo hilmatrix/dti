@@ -1,4 +1,4 @@
-package com.hilmatrix.exercise;
+package com.hilmatrix.exercise.part3;
 
 import java.util.ArrayList;
 import java.util.Arrays;

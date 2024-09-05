@@ -1,10 +1,17 @@
 package com.hilmatrix;
 import java.util.Scanner;
-import com.hilmatrix.exercise.*;
+
+import com.hilmatrix.exercise.part1.ExerciseDay1;
+import com.hilmatrix.exercise.part2.ExerciseDay2;
+import com.hilmatrix.exercise.part3.ExerciseDay3;
 
 
 public class Main {
     public static void main(String[] args) {
+        runExercises();
+    }
+
+    public static void runExercises() {
         Scanner scanner = new Scanner(System.in);
         int exerciseSelection;
 
