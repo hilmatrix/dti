@@ -1,4 +1,4 @@
-package com.hilmatrix.exercise.part3;
+package com.hilmatrix.exercise.day3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ExerciseDay3 {
-    public static void run() {
+    public static void start() {
         Scanner scanner = new Scanner(System.in);
         int taskSelection;
 

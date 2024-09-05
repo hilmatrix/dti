@@ -1,4 +1,4 @@
-package com.hilmatrix.exercise.part1;
+package com.hilmatrix.exercise.day1;
 
 import java.lang.Math;
 import java.time.LocalDate;
@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class ExerciseDay1 {
-    public static void run() {
+    public static void start() {
         Scanner scanner = new Scanner(System.in);
         int taskSelection;
 

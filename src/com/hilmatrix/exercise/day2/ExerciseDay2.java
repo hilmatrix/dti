@@ -1,9 +1,9 @@
-package com.hilmatrix.exercise.part2;
+package com.hilmatrix.exercise.day2;
 
 import java.util.Scanner;
 
 public class ExerciseDay2 {
-    public static void run() {
+    public static void start() {
         Scanner scanner = new Scanner(System.in);
         int taskSelection;
 
