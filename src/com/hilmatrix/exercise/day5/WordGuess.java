@@ -6,33 +6,26 @@ public class WordGuess {
     public String[] WORDS;
     public Random random;
     public Scanner scanner;
-    public String chosenWord;
-    public String hiddenWord;
-    public int guessLeft;
 
     public WordGuess(String[] WORDS) {
         this.WORDS = WORDS;
         random = new Random();
         scanner = new Scanner(System.in);
-        guessLeft = 0;
     }
 
     public String selectRandomWord() {
-        return chosenWord = WORDS[random.nextInt(WORDS.length)];
+        return WORDS[random.nextInt(WORDS.length)].toLowerCase();
     }
 
     public String hideWord(String word) {
-        String hiddenWord = "";
-        for (int loop = 0; loop < word.length(); loop++)
-            hiddenWord += "_";
-        return hiddenWord;
+        return "_".repeat(word.length());
     }
 
-    public boolean isGameOver() {
+    public boolean isGameOver(int guessLeft) {
         return guessLeft <= 0;
     }
 
-    public boolean isWinning() {
+    public boolean isWinning(String hiddenWord) {
         for (int loop = 0; loop < hiddenWord.length(); loop++) {
             if (hiddenWord.charAt(loop) == '_')
                 return false;
@@ -40,20 +33,12 @@ public class WordGuess {
         return true;
     }
 
-    public void startGame() {
-        chosenWord = selectRandomWord();
-        hiddenWord = hideWord(chosenWord);
-        guessLeft = chosenWord.length();
-
-        loopGame();
-    }
-
     public String getPlayerGuess() {
         System.out.print("Your guess : ");
-        return scanner.nextLine();
+        return scanner.nextLine().toLowerCase();
     }
 
-    public boolean isAlreadyGuessed(char charGuess) {
+    public boolean isAlreadyGuessed(String hiddenWord, char charGuess) {
         return hiddenWord.contains(String.valueOf(charGuess));
     }
 
@@ -62,18 +47,18 @@ public class WordGuess {
     }
 
     public String updateHiddenWord(String word, String hiddenWord, char guess) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int loop = 0; loop < hiddenWord.length(); loop++) {
             if (Character.toLowerCase(word.charAt(loop)) == Character.toLowerCase(guess))
-                result += guess;
+                result.append(guess);
             else
-                result += hiddenWord.charAt(loop);
+                result.append(hiddenWord.charAt(loop));
         }
-        return result;
+        return result.toString();
     }
 
     public void displayGameResult(String wordToGuess, String hiddenWord, int  attemptsLeft) {
-        if (isGameOver()) {
+        if (isGameOver(attemptsLeft)) {
             System.out.println("Game over man !");
         }
         else {
@@ -83,13 +68,17 @@ public class WordGuess {
         System.out.println("Attempts Left = " + attemptsLeft);
     }
 
-    public void loopGame() {
-        while (!isGameOver() && !isWinning()) {
+    public void startGame() {
+        String chosenWord = selectRandomWord();
+        String hiddenWord = hideWord(chosenWord);
+        int guessLeft = chosenWord.length();
+
+        while (!isGameOver(guessLeft) && !isWinning(hiddenWord)) {
             System.out.println("Current guess : " + hiddenWord);
             System.out.println("Attempt left : " + guessLeft);
             String inputGuess = getPlayerGuess();
 
-            if (inputGuess.length() < 1) {
+            if (inputGuess.isEmpty()) {
                 System.out.println("Invalid empty input");
                 System.out.println();
                 continue;
@@ -97,9 +86,10 @@ public class WordGuess {
 
             char charGuess = inputGuess.charAt(0);
 
-            if (isAlreadyGuessed(charGuess)) {
+            if (isAlreadyGuessed(hiddenWord, charGuess)) {
                 System.out.println("That character is already guessed");
                 System.out.println();
+                guessLeft--;
                 continue;
             }
 
