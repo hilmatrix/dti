@@ -16,6 +16,7 @@ public class ExerciseDay6 {
             System.out.println("1) rotate array");
             System.out.println("2) has duplicates");
             System.out.println("3) remove duplicates");
+            System.out.println("4) remove occurences");
 
             try {
                 System.out.print("Select task number : ");
@@ -31,6 +32,7 @@ public class ExerciseDay6 {
                 case 1 : runTask1arrayRotation(scanner); break;
                 case 2 : runTask2containDuplicates(scanner); break;
                 case 3 : runTask3removeDuplicates(scanner); break;
+                case 4 : runTask4removeOccurences(scanner); break;
             }
 
             if (taskSelection == 0)
@@ -70,8 +72,24 @@ public class ExerciseDay6 {
         bubbleSort(numberArray);
         int[] noDuplicatesArray = numberArrayRemoveDuplicates(numberArray);
         System.out.print("Output :");
-        for (int loop = 0; loop < noDuplicatesArray.length; loop++) {
-            System.out.print(noDuplicatesArray[loop] + " ");
+
+        printArray(noDuplicatesArray);
+    }
+
+    public static void runTask4removeOccurences(Scanner scanner) {
+        int[] integerArray = numbeArrayReader(scanner);
+
+        System.out.print("Input value to remove : ");
+        int key = scanner.nextInt();
+
+        int[] filteredArray = removeOccurences(integerArray, key);
+        printArray(filteredArray);
+    }
+
+    public static void printArray(int[] integerArray) {
+        System.out.print("Output :");
+        for (int loop = 0; loop < integerArray.length; loop++) {
+            System.out.print(integerArray[loop] + " ");
         }
         System.out.println();
     }
@@ -149,5 +167,23 @@ public class ExerciseDay6 {
                 }
             }
         }
+    }
+
+    public static int[] removeOccurences(int[] integerArray, int key) {
+        int occurences = 0;
+        for (int loopValue : integerArray) {
+            if (loopValue == key)
+                occurences++;
+        }
+
+        int[] result = new int[integerArray.length - occurences];
+
+        int resultIndex = 0;
+        for (int loop = 0; loop < integerArray.length; loop++) {
+            if (integerArray[loop] != key)
+                result[resultIndex++] = integerArray[loop];
+        }
+
+        return result;
     }
 }
