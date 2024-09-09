@@ -3,18 +3,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class WordGuess {
-    public String[] WORDS;
+    public String[] words;
     public Random random;
     public Scanner scanner;
+    public int maxAttempts;
 
-    public WordGuess(String[] WORDS) {
-        this.WORDS = WORDS;
+    public WordGuess(String[] WORDS, int maxAttempts, Scanner scanner) {
+        this.words = WORDS;
+        this.maxAttempts = maxAttempts;
         random = new Random();
-        scanner = new Scanner(System.in);
+        this.scanner = scanner;
     }
 
     public String selectRandomWord() {
-        return WORDS[random.nextInt(WORDS.length)].toLowerCase();
+        return words[random.nextInt(words.length)];
     }
 
     public String hideWord(String word) {
@@ -26,16 +28,12 @@ public class WordGuess {
     }
 
     public boolean isWinning(String hiddenWord) {
-        for (int loop = 0; loop < hiddenWord.length(); loop++) {
-            if (hiddenWord.charAt(loop) == '_')
-                return false;
-        }
-        return true;
+        return !hiddenWord.contains("_");
     }
 
     public String getPlayerGuess() {
         System.out.print("Your guess : ");
-        return scanner.nextLine().toLowerCase();
+        return scanner.nextLine();
     }
 
     public boolean isAlreadyGuessed(String hiddenWord, char charGuess) {
@@ -43,7 +41,7 @@ public class WordGuess {
     }
 
     public boolean isGuessCorrect(String word, char guess) {
-        return word.contains(String.valueOf(guess));
+        return word.toLowerCase().contains(String.valueOf(Character.toLowerCase(guess)));
     }
 
     public String updateHiddenWord(String word, String hiddenWord, char guess) {
@@ -71,7 +69,7 @@ public class WordGuess {
     public void startGame() {
         String chosenWord = selectRandomWord();
         String hiddenWord = hideWord(chosenWord);
-        int guessLeft = chosenWord.length();
+        int guessLeft = maxAttempts;
 
         while (!isGameOver(guessLeft) && !isWinning(hiddenWord)) {
             System.out.println("Current guess : " + hiddenWord);

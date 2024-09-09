@@ -29,7 +29,7 @@ public class ExerciseDay5 {
         scanner = new Scanner(System.in);
 
         switch (taskSelection) {
-            case 1 : runTask1wordGuess(); break;
+            case 1 : runTask1wordGuess(scanner); break;
             case 2 : runTask2currencyConversion(scanner); break;
             case 3 : runTask3removeOdd(scanner); break;
             case 4 : runTask4fizzBuzz(scanner); break;
@@ -41,9 +41,9 @@ public class ExerciseDay5 {
         }
     }
 
-    public static void runTask1wordGuess() {
-        String[] WORDS = {"kucing", "kepiting", "rawon", "pohon", "sarden"};
-        WordGuess wordGuess = new WordGuess(WORDS);
+    public static void runTask1wordGuess(Scanner scanner) {
+        String[] WORDS = {"kucing", "cendol", "nuklir", "pohon", "sarden"};
+        WordGuess wordGuess = new WordGuess(WORDS, 6, scanner);
         wordGuess.startGame();
     }
 
