@@ -1,8 +1,5 @@
 package com.hilmatrix.exercise.day6;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class ExerciseDay6 {
@@ -17,6 +14,8 @@ public class ExerciseDay6 {
             System.out.println("2) has duplicates");
             System.out.println("3) remove duplicates");
             System.out.println("4) remove occurences");
+            System.out.println("5) reverse string");
+            System.out.println("6) find duplicates");
 
             try {
                 System.out.print("Select task number : ");
@@ -33,6 +32,8 @@ public class ExerciseDay6 {
                 case 2 : runTask2containDuplicates(scanner); break;
                 case 3 : runTask3removeDuplicates(scanner); break;
                 case 4 : runTask4removeOccurences(scanner); break;
+                case 5 : runTask5reverseString(scanner); break;
+                case 6 : runTask6findDuplicates(scanner);break;
             }
 
             if (taskSelection == 0)
@@ -86,10 +87,59 @@ public class ExerciseDay6 {
         printArray(filteredArray);
     }
 
+    public static void runTask5reverseString(Scanner scanner) {
+        System.out.print("Input string : ");
+        System.out.println("Output : " + reverseString(scanner.nextLine()));
+    }
+
+    public static void runTask6findDuplicates(Scanner scanner) {
+        int[] integerArray = numbeArrayReader(scanner);
+        bubbleSort(integerArray);
+        int[] duplicates = findDuplicates(integerArray);
+        printArray(duplicates);
+    }
+
+    public static String reverseString(String input) {
+        StringBuilder output = new StringBuilder();
+        for (int loop = input.length() -1; loop >= 0 ; loop--) {
+            output.append(input.charAt(loop));
+        }
+        return output.toString();
+    }
+
+    public static int[] findDuplicates(int[] integerArray) {
+        int duplicates = 0;
+        boolean skip = false;
+
+        for (int loop = 1; loop < integerArray.length; loop++) {
+            if (integerArray[loop - 1] != integerArray[loop])  {
+                skip = false;
+            } else if (!skip) {
+                duplicates++;
+                skip = true;
+            }
+        }
+
+        int[] result = new int[duplicates];
+
+        int resultIndex = 0;
+        skip = false;
+        for (int loop = 1; loop < integerArray.length; loop++) {
+            if (integerArray[loop - 1] != integerArray[loop])  {
+                skip = false;
+            } else if (!skip) {
+                result[resultIndex++] = integerArray[loop];
+                skip = true;
+            }
+        }
+
+        return result;
+    }
+
     public static void printArray(int[] integerArray) {
         System.out.print("Output :");
-        for (int loop = 0; loop < integerArray.length; loop++) {
-            System.out.print(integerArray[loop] + " ");
+        for (int i : integerArray) {
+            System.out.print(i + " ");
         }
         System.out.println();
     }
@@ -104,7 +154,7 @@ public class ExerciseDay6 {
         int[] numberArray = new int[strNumberArray.length];
 
         for (int loop = 0; loop < strNumberArray.length; loop++) {
-            numberArray[loop] = Integer.valueOf(strNumberArray[loop]);
+            numberArray[loop] = Integer.parseInt(strNumberArray[loop]);
         }
 
         return numberArray;
@@ -112,8 +162,6 @@ public class ExerciseDay6 {
 
 
     public static int[] numberArrayRemoveDuplicates(int[] integerArray) {
-        if (integerArray.length < 1)
-            return null;
 
         // count duplicates
         int duplicates = 0;
@@ -179,9 +227,9 @@ public class ExerciseDay6 {
         int[] result = new int[integerArray.length - occurences];
 
         int resultIndex = 0;
-        for (int loop = 0; loop < integerArray.length; loop++) {
-            if (integerArray[loop] != key)
-                result[resultIndex++] = integerArray[loop];
+        for (int i : integerArray) {
+            if (i != key)
+                result[resultIndex++] = i;
         }
 
         return result;
