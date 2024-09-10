@@ -1,6 +1,5 @@
 package com.hilmatrix.exercise.day7;
 
-import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,20 +76,19 @@ public class ExerciseDay7 {
 
         try  {
             inputStream = classLoader.getResourceAsStream("product_sales_data.csv");
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-
             if (inputStream == null) {
                 System.out.println("Resource not found.");
                 return;
             }
 
+            reader = new BufferedReader(new InputStreamReader(inputStream));
             DataParser newData = new DataParser();
 
+            // Lewati header
+            reader.readLine();
             String line = reader.readLine();
-            line = reader.readLine();
             newData.parse(line);
 
-            int lineCount = 1;
             double totalSales = newData.sold * newData.price;
             int productSold = newData.sold;
 
@@ -100,16 +98,19 @@ public class ExerciseDay7 {
             while ((line = reader.readLine()) != null) {
                 try {
                     newData.parse(line);
-                    totalSales += newData.sold * newData.price;
-                    productSold += newData.sold;
-                    if (newData.sold < leastSoldProduct.sold) {
-                        leastSoldProduct.copy(newData);
-                    }
-                    if (newData.sold > mostSoldProduct.sold) {
-                        mostSoldProduct.copy(newData);
-                    }
                 } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Parsing Error");
+                    continue;
+                }
 
+                totalSales += newData.sold * newData.price;
+                productSold += newData.sold;
+                if (newData.sold < leastSoldProduct.sold) {
+                    leastSoldProduct.copy(newData);
+                }
+                if (newData.sold > mostSoldProduct.sold) {
+                    mostSoldProduct.copy(newData);
                 }
             }
 
@@ -120,8 +121,8 @@ public class ExerciseDay7 {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("File reading Error");
         } finally {
-            // Manually close the resources
             try {
                 if (reader != null) {
                     reader.close();
@@ -131,10 +132,9 @@ public class ExerciseDay7 {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("File closing Error");
             }
         }
-
-
     }
 
     public static class DataParser {
@@ -151,9 +151,9 @@ public class ExerciseDay7 {
         public void parse(String data) {
             String[] parts = data.split(",");
 
-            product = parts[0]; // "product"
-            sold = Integer.parseInt(parts[1]); // 10
-            price = Float.parseFloat(parts[2]); // 50.5
+            product = parts[0];
+            sold = Integer.parseInt(parts[1]);
+            price = Float.parseFloat(parts[2]);
         }
 
         public void copy(DataParser newData) {
