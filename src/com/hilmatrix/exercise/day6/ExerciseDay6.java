@@ -1,9 +1,6 @@
 package com.hilmatrix.exercise.day6;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ExerciseDay6 {
     public static void start() {
@@ -47,7 +44,7 @@ public class ExerciseDay6 {
     }
 
     public static void runTask1arrayRotation(Scanner scanner) {
-        int[] numberArray = numbeArrayReader(scanner);
+        int[] numberArray = numberArrayReader(scanner);
         int[] shiftedArray = new int[numberArray.length];
 
         System.out.print("Input d number to rotate : ");
@@ -63,7 +60,7 @@ public class ExerciseDay6 {
     }
 
     public static void runTask2containDuplicates(Scanner scanner) {
-        int[] numberArray = numbeArrayReader(scanner);
+        int[] numberArray = numberArrayReader(scanner);
         bubbleSort(numberArray);
         if (numberArrayContainDuplicates(numberArray))
             System.out.println("Has duplicates");
@@ -72,26 +69,23 @@ public class ExerciseDay6 {
     }
 
     public static void runTask3removeDuplicates(Scanner scanner) {
-        int[] numberArray = numbeArrayReader(scanner);
-        List<Integer> uniqueArray = new ArrayList<>();
-        HashSet<Integer> set = new HashSet<>();
+        int[] numberArray = numberArrayReader(scanner);
+        int[] uniqueArray = numberArrayRemoveDuplicates(numberArray);
+        printArray(uniqueArray);
 
-        for (int number : numberArray) {
-            if (!set.contains(number)) {
-                set.add(number);
-                uniqueArray.add(number);
-            }
-        }
+        System.out.print("Sort Ascending. ");
+        numberArray = numberArrayReader(scanner);
+        bubbleSort(numberArray);
+        printArray(numberArray);
 
-        System.out.print("Output :");
-        for (int number : uniqueArray) {
-            System.out.print(number + " ");
-        }
-        System.out.println();
+        System.out.print("Sort Descending. ");
+        numberArray = numberArrayReader(scanner);
+        bubbleSortDescending(numberArray);
+        printArray(numberArray);
     }
 
     public static void runTask4removeOccurences(Scanner scanner) {
-        int[] integerArray = numbeArrayReader(scanner);
+        int[] integerArray = numberArrayReader(scanner);
 
         System.out.print("Input value to remove : ");
         int key = scanner.nextInt();
@@ -106,14 +100,14 @@ public class ExerciseDay6 {
     }
 
     public static void runTask6findDuplicates(Scanner scanner) {
-        int[] integerArray = numbeArrayReader(scanner);
+        int[] integerArray = numberArrayReader(scanner);
         bubbleSort(integerArray);
         int[] duplicates = findDuplicates(integerArray);
         printArray(duplicates);
     }
 
     public static void runTask7waitWarmer(Scanner scanner) {
-        int[] integerArray = numbeArrayReader(scanner);
+        int[] integerArray = numberArrayReader(scanner);
         int[] waitDays = new int[integerArray.length];
         for (int loopFirst = 0; loopFirst < integerArray.length-1; loopFirst++) {
             waitDays[loopFirst] = 0;
@@ -173,7 +167,7 @@ public class ExerciseDay6 {
         System.out.println();
     }
 
-    public static int[] numbeArrayReader(Scanner scanner) {
+    public static int[] numberArrayReader(Scanner scanner) {
         System.out.print("Input number separated by space : ");
 
         String strNumber = scanner.nextLine();
@@ -192,32 +186,19 @@ public class ExerciseDay6 {
 
     public static int[] numberArrayRemoveDuplicates(int[] integerArray) {
 
-        // count duplicates
-        int duplicates = 0;
+        bubbleSort(integerArray);
+
+        int[] tempArray = new int[integerArray.length];
+        int uniqueCount = 1;
+        tempArray[0] = integerArray[0];
+
         for (int loop = 1; loop < integerArray.length; loop++) {
-            if (integerArray[loop - 1] == integerArray[loop])  {
-                duplicates++;
+            if (integerArray[loop] != integerArray[loop - 1]) {
+                tempArray[uniqueCount++] = integerArray[loop];
             }
         }
 
-        // new array with length reduced by duplicates
-        int[] result = new int[integerArray.length - duplicates];
-
-        result[0] = integerArray[0];
-
-        if (integerArray.length == 1) {
-            return result;
-        }
-
-        // copying array without duplicates
-        int resultIndex = 1;
-        for (int loop = 1; loop < integerArray.length; loop++) {
-            if (integerArray[loop - 1] != integerArray[loop])  {
-                result[resultIndex++] = integerArray[loop];
-            }
-        }
-
-        return result;
+        return Arrays.copyOf(tempArray,uniqueCount);
     }
 
     public static boolean numberArrayContainDuplicates(int[] integerArray) {
@@ -238,6 +219,19 @@ public class ExerciseDay6 {
         for (int loopFirst = 0; loopFirst < arrayLength - 1; loopFirst++) {
             for (int loopSecond = 0; loopSecond < arrayLength - loopFirst - 1; loopSecond++) {
                 if (integerArray[loopSecond] > integerArray[loopSecond + 1]) {
+                    int temp = integerArray[loopSecond];
+                    integerArray[loopSecond] = integerArray[loopSecond + 1];
+                    integerArray[loopSecond + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void bubbleSortDescending(int[] integerArray) {
+        int arrayLength = integerArray.length;
+        for (int loopFirst = 0; loopFirst < arrayLength - 1; loopFirst++) {
+            for (int loopSecond = 0; loopSecond < arrayLength - loopFirst - 1; loopSecond++) {
+                if (integerArray[loopSecond] < integerArray[loopSecond + 1]) {
                     int temp = integerArray[loopSecond];
                     integerArray[loopSecond] = integerArray[loopSecond + 1];
                     integerArray[loopSecond + 1] = temp;
