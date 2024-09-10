@@ -1,5 +1,8 @@
 package com.hilmatrix.exercise.day6;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 public class ExerciseDay6 {
@@ -56,9 +59,7 @@ public class ExerciseDay6 {
             shiftedArray[loop] = numberArray[nextIndex];
         }
 
-        for (int value : shiftedArray) {
-            System.out.println(value);
-        }
+        printArray(shiftedArray);
     }
 
     public static void runTask2containDuplicates(Scanner scanner) {
@@ -72,11 +73,21 @@ public class ExerciseDay6 {
 
     public static void runTask3removeDuplicates(Scanner scanner) {
         int[] numberArray = numbeArrayReader(scanner);
-        bubbleSort(numberArray);
-        int[] noDuplicatesArray = numberArrayRemoveDuplicates(numberArray);
-        System.out.print("Output :");
+        List<Integer> uniqueArray = new ArrayList<>();
+        HashSet<Integer> set = new HashSet<>();
 
-        printArray(noDuplicatesArray);
+        for (int number : numberArray) {
+            if (!set.contains(number)) {
+                set.add(number);
+                uniqueArray.add(number);
+            }
+        }
+
+        System.out.print("Output :");
+        for (int number : uniqueArray) {
+            System.out.print(number + " ");
+        }
+        System.out.println();
     }
 
     public static void runTask4removeOccurences(Scanner scanner) {
