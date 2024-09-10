@@ -16,6 +16,7 @@ public class ExerciseDay6 {
             System.out.println("4) remove occurences");
             System.out.println("5) reverse string");
             System.out.println("6) find duplicates");
+            System.out.println("7) wait warmer");
 
             try {
                 System.out.print("Select task number : ");
@@ -34,6 +35,7 @@ public class ExerciseDay6 {
                 case 4 : runTask4removeOccurences(scanner); break;
                 case 5 : runTask5reverseString(scanner); break;
                 case 6 : runTask6findDuplicates(scanner);break;
+                case 7 : runTask7waitWarmer(scanner); break;
             }
 
             if (taskSelection == 0)
@@ -97,6 +99,22 @@ public class ExerciseDay6 {
         bubbleSort(integerArray);
         int[] duplicates = findDuplicates(integerArray);
         printArray(duplicates);
+    }
+
+    public static void runTask7waitWarmer(Scanner scanner) {
+        int[] integerArray = numbeArrayReader(scanner);
+        int[] waitDays = new int[integerArray.length];
+        for (int loopFirst = 0; loopFirst < integerArray.length-1; loopFirst++) {
+            waitDays[loopFirst] = 0;
+            for (int loopSecond = loopFirst+1; loopSecond < integerArray.length; loopSecond++) {
+                if (integerArray[loopFirst] < integerArray[loopSecond]) {
+                    waitDays[loopFirst] = loopSecond - loopFirst;
+                    break;
+                }
+            }
+        }
+        System.out.print("Output : ");
+        printArray(waitDays);
     }
 
     public static String reverseString(String input) {
