@@ -1,40 +1,24 @@
 package com.hilmatrix.exercise.day8;
 
-public class Ticket {
+public class Ticket implements Ticketable {
     private static int soldTickets;
-    private int eventId;
-    private String eventName;
+    private static int uniqueTicketId;
+    private final String eventName;
+    private final String userName;
     private int price;
 
-    public static void setSoldTickets(int soldTickets) {
-        Ticket.soldTickets = soldTickets;
-    }
-
-    public static int getSoldTickets() {
-        return soldTickets;
-    }
-
-    public int getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
+    public Ticket(String eventName, String userName) {
         this.eventName = eventName;
+        this.userName = userName;
+        soldTickets++;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    @Override
+    public String printTicket() {
+        String result = "";
+        result += "Ticked ID = " + uniqueTicketId;
+        result += "Event Name = " + eventName;
+        result += "Price = " + price;
+        return result;
     }
 }
