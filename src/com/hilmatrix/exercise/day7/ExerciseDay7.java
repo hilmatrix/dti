@@ -84,16 +84,16 @@ public class ExerciseDay7 {
             reader = new BufferedReader(new InputStreamReader(inputStream));
             DataParser newData = new DataParser();
 
+            boolean firstTime = true;
+
             // Lewati header
-            reader.readLine();
             String line = reader.readLine();
-            newData.parse(line);
 
-            double totalSales = newData.sold * newData.price;
-            int productSold = newData.sold;
+            double totalSales = 0;
+            int productSold = 0;
 
-            DataParser mostSoldProduct = new DataParser(newData);
-            DataParser leastSoldProduct = new DataParser(newData);
+            DataParser mostSoldProduct = null;
+            DataParser leastSoldProduct = null;
 
             while ((line = reader.readLine()) != null) {
                 try {
@@ -101,6 +101,18 @@ public class ExerciseDay7 {
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Parsing Error");
+                    continue;
+                }
+
+
+                if (firstTime) {
+                    totalSales = newData.sold * newData.price;
+                    productSold = newData.sold;
+
+                    mostSoldProduct = new DataParser(newData);
+                    leastSoldProduct = new DataParser(newData);
+
+                    firstTime = false;
                     continue;
                 }
 
@@ -114,7 +126,7 @@ public class ExerciseDay7 {
                 }
             }
 
-            System.out.println("Total sales = " + totalSales);
+            System.out.printf("Total sales = %f\n",totalSales);
             System.out.println("Total product sold = " + productSold);
             System.out.println("Most Bought Product = " + mostSoldProduct.product);
             System.out.println("Least Bought Product = " + leastSoldProduct.product);
