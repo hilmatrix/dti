@@ -43,9 +43,12 @@ public class ExerciseDay8 {
 
         for (int loop = 0; loop < eventList.size(); loop++) {
             Event event = Database.getEvent(loop);
-            System.out.println((loop+1) + ". "+ event.getEventName() + ", " +" available "
-                    + event.getTicketAvailable()  + "/"+ event.getTicketMax()
-                    + ", price " + event.getTicketPrice());
+            System.out.printf("%d. %s, available %d/%d, price %d\n",
+                (loop + 1),
+                event.getEventName(),
+                event.getTicketAvailable(),
+                event.getTicketMax(),
+                event.getTicketPrice());
         }
     }
 
