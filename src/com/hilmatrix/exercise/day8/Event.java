@@ -6,20 +6,27 @@ import java.util.UUID;
 
 public class Event {
     private String eventName;
+    private String id;
     private int ticketPrice;
     private int ticketMax;
     private int ticketSold;
     private List<String> ticketIDList;
 
-    public String getEventID() {
-        return eventID;
+    public String getID() {
+        return id;
     }
-
-    private String eventID;
-
     public void removeTicket(String ticketId) {
         ticketIDList.remove(ticketId);
         ticketSold--;
+    }
+
+    public void addTicket(String ticketId) {
+        ticketIDList.add(ticketId);
+        ticketSold++;
+    }
+
+    public int getTicketMax() {
+        return ticketMax;
     }
 
     public String getEventName() {
@@ -38,30 +45,11 @@ public class Event {
         return (ticketMax - ticketSold) > 0;
     }
 
-    public Event(String eventName, int ticketPrice, int ticketMax) {
+    public Event(String eventId, String eventName, int ticketPrice, int ticketMax) {
+        this.id = eventId;
         this.eventName = eventName;
         this.ticketPrice = ticketPrice;
         this.ticketMax = ticketMax;
-
-        eventID = UUID.randomUUID().toString();
         ticketIDList = new ArrayList<>();
-    }
-
-    public Ticket bookTicket(String userName) {
-        if (ticketSold < ticketMax) {
-            try {
-                Ticket ticket = new Ticket(eventName, eventID, userName, ticketPrice);
-                ticketSold++;
-                ticketIDList.add(ticket.getId());
-                System.out.println("Booked successfully !");
-                return ticket;
-            } catch (Exception e) {
-                System.out.println("Error creating ticket");
-                return null;
-            }
-        } else {
-            System.out.println("Ticket not available");
-            return null;
-        }
     }
 }

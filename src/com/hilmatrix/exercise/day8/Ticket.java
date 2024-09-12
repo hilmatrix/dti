@@ -4,27 +4,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class Ticket implements Ticketable {
-    private static List<Ticket> soldTicketList;
-
-    public static List<Ticket> getSoldTicketList() {
-        return soldTicketList;
-    }
-
-    public static void initializeSoldTicketList() {
-        soldTicketList = new ArrayList<>();
-    }
-
-    private String id;
-    private final String eventName;
+    private final String id;
+    private final String eventID;
     private final String userName;
     private int price;
     public boolean confirmed;
-
-    public String getEventID() {
-        return eventID;
-    }
-
-    private final String eventID;
 
     public boolean isConfirmed() {
         return confirmed;
@@ -38,22 +22,23 @@ public class Ticket implements Ticketable {
         return id;
     }
 
-    public Ticket(String eventName, String eventID, String userName, int price) {
-        this.eventName = eventName;
+    public String getEventID() {
+        return eventID;
+    }
+
+    public Ticket(String ticketID, String eventID, String userName, int price) {
+        this.id = ticketID;
+        this.eventID = eventID;
         this.userName = userName;
         this.price = price;
-        this.id = UUID.randomUUID().toString();
         this.confirmed = false;
-
-        this.eventID = eventID;
-        soldTicketList.add(this);
     }
 
     @Override
     public String printTicket() {
         String result = "";
-        result += "Ticked ID = " + id + ", ";
-        result += "Event = " + eventName + ", ";
+        result += "TicketID = " + id + ", ";
+        result += "EventID = " + eventID + ", ";
         result += "Name = " + userName + ", ";
         result += "Price = " + price + ", ";
         result += "Confirmed = " + confirmed + "";

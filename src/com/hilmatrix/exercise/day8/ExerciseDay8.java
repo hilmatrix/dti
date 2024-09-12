@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ExerciseDay8 {
-    public static List<Event> eventList = new ArrayList<>();
 
     public static void start() {
         Scanner scanner = new Scanner(System.in);
-        eventList.add(new Event("Festival Makanan",20000, 15));
-        eventList.add(new Event("Konser Musik",50000, 10));
-        eventList.add(new Event("Event Cosplay",100000, 5));
-        Ticket.initializeSoldTicketList();
+        Database.initialize();
+
+        Database.addEvent("Festival Makanan",20000, 10);
+        Database.addEvent("Konser Musik",50000, 6);
+        Database.addEvent("Event Cosplay",100000, 3);
 
         boolean quit = false;
         int input;
@@ -38,70 +38,86 @@ public class ExerciseDay8 {
     }
 
     public static void printEvents() {
+        List<String> eventList = Database.getEventList();
         System.out.println("-".repeat(30));
+
         for (int loop = 0; loop < eventList.size(); loop++) {
-            Event event = eventList.get(loop);
-            System.out.println((loop+1) + ". " + event.getEventName() + ", " +" available "
-                    + event.getTicketAvailable() + ", price " + event.getTicketPrice());
+            Event event = Database.getEvent(loop);
+            System.out.println((loop+1) + ". "+ event.getEventName() + ", " +" available "
+                    + event.getTicketAvailable()  + "/"+ event.getTicketMax()
+                    + ", price " + event.getTicketPrice());
         }
     }
 
     public static void listPurchasedTickets() {
+        List<String> ticketList = Database.getTicketList();
         System.out.println("-".repeat(30));
-        List<Ticket> ticketList = Ticket.getSoldTicketList();
+
+
         for (int loop = 0; loop < ticketList.size(); loop++) {
-            System.out.println((loop+1) + ". " + ticketList.get(loop).printTicket());
+            Ticket ticket = Database.getTicket(loop);
+            Event event = Database.getEvent(ticket.getEventID());
+            String printTicketOutput = ticket.printTicket();
+
+            printTicketOutput = printTicketOutput.replace("EventID","Event Name");
+            printTicketOutput = printTicketOutput.replace(event.getID(), event.getEventName());
+
+            System.out.println((loop+1) + ". " + printTicketOutput);
         }
     }
 
     public static void ticketAction(Scanner scanner) {
-        List<Ticket> ticketList = Ticket.getSoldTicketList();
+        List<String> ticketList = Database.getTicketList();
         System.out.println("-".repeat(30));
 
-        if (ticketList.size() < 1) {
+        if (ticketList.isEmpty()) {
             return;
         }
 
         int selectedTicket = readInputRange(scanner, 1, ticketList.size());
         selectedTicket--;
 
-        System.out.println("-".repeat(30));
-        if (ticketList.get(selectedTicket).isConfirmed()) {
-            System.out.println("Ticket is confirmed");
-            return;
-        } else {
-            System.out.println("Do you want to confirm ? 1 Yes, 2 No 3 Cancel");
-            int confirmation = readInputRange(scanner, 1, 3);
+        Ticket ticket = Database.getTicket(selectedTicket);
 
-            if (confirmation == 1) {
-                ticketList.get(selectedTicket).setConfirmed(true);
-            } else if (confirmation == 2) {
-                String ticketID = ticketList.get(selectedTicket).getId();
-                String eventID = ticketList.get(selectedTicket).getEventID();
-                ticketList.remove(selectedTicket);
-                for (Event event : eventList) {
-                    if (event.getEventID() == eventID)
-                        event.removeTicket(ticketID);
-                }
-            }
+        System.out.println("-".repeat(30));
+        if (ticket.isConfirmed()) {
+            System.out.println("Ticket is confirmed");
+        } else {
+            confirmTicket(scanner, ticket);
+        }
+    }
+
+    public static void confirmTicket(Scanner scanner, Ticket ticket) {
+        List<String> ticketList = Database.getTicketList();
+        System.out.println("Do you want to confirm ? 1 Yes, 2 No 3 Cancel");
+        int confirmation = readInputRange(scanner, 1, 3);
+
+        if (confirmation == 1) {
+            ticket.setConfirmed(true);
+        } else if (confirmation == 2) {
+            Database.removeTicket(ticket.getId());
         }
     }
 
     public static void bookTicket(Scanner scanner) {
+        List<String> eventList = Database.getEventList();
         System.out.println("-".repeat(30));
+
         System.out.println("Which event you want to book ?");
         int eventNumber = readInputRange(scanner, 1, eventList.size());
         eventNumber--;
 
-        System.out.println("Ticket available : " + eventList.get(eventNumber).getTicketAvailable());
-        if (!eventList.get(eventNumber).isTicketAvailable()) {
+        Event event = Database.getEvent(eventNumber);
+
+        System.out.println("Ticket available : " + Database.getEvent(eventNumber).getTicketAvailable());
+        if (!event.isTicketAvailable()) {
             System.out.println("Ticket is not available");
             return;
         }
 
         System.out.println("-".repeat(30));
         System.out.println("Please enter your name");
-        eventList.get(eventNumber).bookTicket(scanner.nextLine());
+        Database.bookTicket(event.getID(), scanner.nextLine());
         System.out.println("-".repeat(30));
     }
 
