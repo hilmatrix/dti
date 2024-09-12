@@ -1,6 +1,5 @@
 package com.hilmatrix.exercise.day8;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -91,8 +90,7 @@ public class ExerciseDay8 {
     }
 
     public static void confirmTicket(Scanner scanner, Ticket ticket) {
-        List<String> ticketList = Database.getTicketList();
-        System.out.println("Do you want to confirm ? 1 Yes, 2 No 3 Cancel");
+        System.out.println("Do you want to confirm ? 1) Yes 2) Cancel Ticket 3) Return to Menu");
         int confirmation = readInputRange(scanner, 1, 3);
 
         if (confirmation == 1) {

@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Database {
     private static HashMap<String, Event> eventMap;
     private static HashMap<String, Ticket> ticketMap;
+
     private static List<String> eventList;
     private static List<String> ticketList;
 
