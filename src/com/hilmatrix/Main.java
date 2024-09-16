@@ -2,6 +2,7 @@ package com.hilmatrix;
 import java.util.Scanner;
 
 import com.hilmatrix.exercise.day1.ExerciseDay1;
+import com.hilmatrix.exercise.day10.ExerciseDay10;
 import com.hilmatrix.exercise.day2.ExerciseDay2;
 import com.hilmatrix.exercise.day3.ExerciseDay3;
 import com.hilmatrix.exercise.day4.ExerciseDay4;
@@ -24,7 +25,7 @@ public class Main {
         while (true) {
             System.out.println("---------------------------");
             System.out.println("Hilmatrix Exercise Selector");
-            System.out.println("Exercise available : 1-9. Select  0 to exit");
+            System.out.println("Exercise available : 1-10. Select  0 to exit");
             System.out.println();
             try {
                 System.out.print("Select exercise number : ");
@@ -62,6 +63,9 @@ public class Main {
                         break;
                     case 9:
                         ExerciseDay9.start();
+                        break;
+                    case 10:
+                        ExerciseDay10.start();
                         break;
                 }
             } catch (Exception e) {
