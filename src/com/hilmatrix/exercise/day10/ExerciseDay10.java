@@ -57,7 +57,7 @@ public class ExerciseDay10 {
     }
 
     public static void borrowMaterial(Scanner scanner) {
-        System.out.println("-".repeat(30));10
+        System.out.println("-".repeat(30));
         System.out.println("Which material you want to borrow ? 0 to cancel");
         int input = readInputRange(scanner, 0, 1);
         input--;

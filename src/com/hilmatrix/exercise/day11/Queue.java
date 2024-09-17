@@ -15,7 +15,7 @@ public class Queue<T> extends LinkedList<T> {
 
     public T dequeue() {
         if (head == null) {
-            return null;
+            throw new NullPointerException("Pop from already empty queue");
         }
         T data = head.data;
         head = head.next;
@@ -23,5 +23,12 @@ public class Queue<T> extends LinkedList<T> {
             tail = null;
         }
         return data;
+    }
+
+    public T peek() throws NullPointerException {
+        if (head == null) {
+            throw new NullPointerException("Peek from already empty queue");
+        }
+        return head.data;
     }
 }

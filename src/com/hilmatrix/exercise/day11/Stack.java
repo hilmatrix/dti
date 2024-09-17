@@ -11,12 +11,19 @@ public class Stack<T> extends LinkedList<T> {
         }
     }
 
-    public T pop() {
+    public T pop() throws NullPointerException {
         if (head == null) {
-            return null;
+            throw new NullPointerException("Pop from already empty stack");
         }
         T data = head.data;
         head = head.next;
         return data;
+    }
+
+    public T peek() throws NullPointerException {
+        if (head == null) {
+            throw new NullPointerException("Peek from already empty stack");
+        }
+        return head.data;
     }
 }
