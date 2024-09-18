@@ -1,5 +1,7 @@
 package com.hilmatrix.exercise.day11;
 
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ExerciseDay11 {
@@ -12,6 +14,7 @@ public class ExerciseDay11 {
             System.out.println("Exercise Day 11. Select 0 to exit");
             System.out.println("Task 1 test Stack class");
             System.out.println("Task 2 test Queue class");
+            System.out.println("Task 3 test Binary Tree class");
 
             try {
                 System.out.print("Select task number : ");
@@ -26,6 +29,7 @@ public class ExerciseDay11 {
             switch (taskSelection) {
                 case 1 : runTask1testStack(); break;
                 case 2 : runTask2testQueue(); break;
+                case 3 : runTask3testBinaryTree(scanner); break;
             }
 
             if (taskSelection == 0)
@@ -109,5 +113,61 @@ public class ExerciseDay11 {
         } catch (Exception e) {
             System.out.println("Queue error message : " + e.getMessage());
         }
+    }
+
+    public static void runTask3testBinaryTree(Scanner scanner) {
+        BinaryTree binaryTree = new BinaryTree();
+        Random random = new Random();
+        System.out.println("---------------------------");
+
+        System.out.println("Generate how many random data ?");
+        int input = readInputRange (scanner, 1, 100);
+
+        for (int loop = 0; loop < input; loop++) {
+            int temp = random.nextInt(100);
+            System.out.printf("Adding %d to binaryTree\n", temp);
+            binaryTree.insert(temp);
+        }
+
+        binaryTree.printTree();
+
+        input = 0;
+
+        while (input  != -1) {
+            System.out.println("---------------------------");
+            System.out.println("Finding input (0 - 100) in binary tree. Enter -1 to finish");
+            input = readInputRange (scanner, -1, 100);
+
+            if (input > -1) {
+                int steps = binaryTree.existData(input);
+                if (steps == -1)
+                    System.out.println("Data not found");
+                else
+                    System.out.printf("Data found after %d steps\n", steps);
+            }
+        }
+    }
+
+    public static int readInputRange(Scanner scanner, int min, int max) {
+        boolean correctInput = false;
+        int result = min;
+
+        while (!correctInput) {
+            System.out.printf("Enter input between %d and %d : ", min, max);
+
+            try {
+                result = Integer.parseInt(scanner.nextLine());
+
+                if ((result >= min) && (result <= max)) {
+                    correctInput = true;
+                } else {
+                    System.out.println("Input outside of range");
+                }
+            } catch (Exception e) {
+                System.out.println("Input parsing error");
+            }
+        }
+
+        return result;
     }
 }
