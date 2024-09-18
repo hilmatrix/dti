@@ -3,7 +3,7 @@ package com.hilmatrix.exercise.day11;
 public class BinaryTree{
     private static class TreeNode {
         private final int data;
-        private TreeNode leftNode, rightNode;
+        public TreeNode leftNode, rightNode;
 
         TreeNode(int data) {
             this.data = data;
@@ -13,35 +13,35 @@ public class BinaryTree{
 
     private TreeNode rootNode;
 
-    public void insert(int data) {
+    public boolean insert(int data) {
         if (rootNode == null) {
             rootNode = new TreeNode(data);
-            return;
+            return true;
         }
 
-        boolean finish = false;
         TreeNode currentNode = rootNode;
 
-        while (!finish) {
+        while (true) {
             if (data < currentNode.data) {
                 if (currentNode.leftNode == null) {
                     currentNode.leftNode = new TreeNode(data);
-                    finish = true;
+                    break;
                 } else {
                     currentNode = currentNode.leftNode;
                 }
             } else if (data > currentNode.data) {
                 if (currentNode.rightNode == null) {
                     currentNode.rightNode = new TreeNode(data);
-                    finish = true;
+                    break;
                 } else {
                     currentNode = currentNode.rightNode;
                 }
             } else  { // data == nextRoot.data
                 System.out.printf("Data %d already exist, skipping \n", data);
-                finish = true;
+                return false;
             }
         }
+        return true;
     }
 
     public int existData(int input) {
@@ -71,8 +71,10 @@ public class BinaryTree{
                 System.out.println("C:" + node.data);
             else
                 System.out.println((isLeft ? "L:" : "R:") + node.data);
-            printTree(node.rightNode,false, steps + 1);
+
             printTree(node.leftNode, true, steps + 1);
+            printTree(node.rightNode,false, steps + 1);
+
         }
     }
 
