@@ -1,43 +1,43 @@
 package com.hilmatrix.exercise.day11;
 
 public class BinaryTree{
-    private class TreeNode {
-        int data;
-        TreeNode left, right;
+    private static class TreeNode {
+        private final int data;
+        private TreeNode leftNode, rightNode;
 
         TreeNode(int data) {
             this.data = data;
-            this.left = this.right = null;
+            this.leftNode = this.rightNode = null;
         }
     }
 
-    private TreeNode root;
+    private TreeNode rootNode;
 
     public void insert(int data) {
-        if (root == null) {
-            root = new TreeNode(data);
+        if (rootNode == null) {
+            rootNode = new TreeNode(data);
             return;
         }
 
         boolean finish = false;
-        TreeNode nextRoot = root;
+        TreeNode currentNode = rootNode;
 
         while (!finish) {
-            if (data < nextRoot.data) {
-                if (nextRoot.left == null) {
-                    nextRoot.left = new TreeNode(data);
+            if (data < currentNode.data) {
+                if (currentNode.leftNode == null) {
+                    currentNode.leftNode = new TreeNode(data);
                     finish = true;
                 } else {
-                    nextRoot = nextRoot.left;
+                    currentNode = currentNode.leftNode;
                 }
-            } else if (data > nextRoot.data) {
-                if (nextRoot.right == null) {
-                    nextRoot.right = new TreeNode(data);
+            } else if (data > currentNode.data) {
+                if (currentNode.rightNode == null) {
+                    currentNode.rightNode = new TreeNode(data);
                     finish = true;
                 } else {
-                    nextRoot = nextRoot.right;
+                    currentNode = currentNode.rightNode;
                 }
-            } else if (data == nextRoot.data) {
+            } else  { // data == nextRoot.data
                 System.out.printf("Data %d already exist, skipping \n", data);
                 finish = true;
             }
@@ -45,16 +45,16 @@ public class BinaryTree{
     }
 
     public int existData(int input) {
-        TreeNode nextRoot = root;
+        TreeNode currentNode = rootNode;
         int steps = 1;
 
-        while (nextRoot != null) {
-            if (nextRoot.data == input)
+        while (currentNode != null) {
+            if (input > currentNode.data)
+                currentNode = currentNode.rightNode;
+            else if (input < currentNode.data)
+                currentNode = currentNode.leftNode;
+            else // input == nextRoot.data
                 return steps;
-            else if (input > nextRoot.data)
-                nextRoot = nextRoot.right;
-            else if (input < nextRoot.data)
-                nextRoot = nextRoot.left;
 
             steps++;
         }
@@ -71,12 +71,12 @@ public class BinaryTree{
                 System.out.println("C:" + node.data);
             else
                 System.out.println((isLeft ? "L:" : "R:") + node.data);
-            printTree(node.right,false, steps + 1);
-            printTree(node.left, true, steps + 1);
+            printTree(node.rightNode,false, steps + 1);
+            printTree(node.leftNode, true, steps + 1);
         }
     }
 
     public void printTree() {
-        printTree(root, false, 0);
+        printTree(rootNode, false, 0);
     }
 }
