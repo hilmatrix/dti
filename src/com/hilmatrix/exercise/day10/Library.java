@@ -60,12 +60,26 @@ public class Library {
 
     public void borrowMaterial(int index) {
         String materialID = materialListByID.get(index);
+        boolean success = false;
 
         for (LibraryMaterial material : materialList) {
             if (material.getMaterialID().equals(materialID) && material.isAvailable()) {
                 material.borrow();
+                System.out.println("Borrowed a material. ID = " + material.getLibraryID());
+                success = true;
+                break;
             }
         }
+        if (!success) {
+            System.out.println("Failed to borrow material, no copies left");
+        }
+    }
+
+    public void returnMaterial(int index) {
+        List<LibraryMaterial>  borrowedMaterials = listAllBorrowedMaterials();
+        LibraryMaterial borrowedMaterial = borrowedMaterials.get(index);
+        borrowedMaterial.returnMaterial();
+        System.out.println("Returned material with library ID " + borrowedMaterial.getLibraryID());
     }
 
     public List<LibraryMaterial> listAllBorrowedMaterials() {
